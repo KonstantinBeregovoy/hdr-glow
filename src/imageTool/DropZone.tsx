@@ -1,4 +1,5 @@
 import { useState, type DragEvent } from "react";
+import { DROP_HINT } from "../siteFacts";
 
 type Props = { hasImage: boolean; onFile: (file: File) => void };
 
@@ -41,9 +42,7 @@ export function DropZone({ hasImage, onFile }: Props) {
             ? "Drag another image in, or click to browse"
             : "Drag a logo in, or click to browse"}
         </span>
-        <span className="drop__hint">
-          PNG, JPEG, WebP, AVIF or SVG. Processed in your browser, nothing is uploaded.
-        </span>
+        <span className="drop__hint">{DROP_HINT}</span>
       </label>
     </>
   );

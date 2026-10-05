@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { SWATCH_HINT } from "./siteFacts";
 import { buildSwatch, MAX_SWATCH_BOOST, MIN_SWATCH_BOOST } from "./tool/swatch";
 
 /**
@@ -32,10 +33,7 @@ export function SwatchGenerator() {
 
   return (
     <div className="swatch-gen">
-      <p className="swatch-gen__hint">
-        This tiny image is what the CSS above cuts the letters out of. Lower the strength for a
-        subtler glow.
-      </p>
+      <p className="swatch-gen__hint">{SWATCH_HINT}</p>
       <label className="field">
         <span>
           Glow strength: {boost.toFixed(1)}× brighter than white (+{Math.log2(boost).toFixed(1)}{" "}
