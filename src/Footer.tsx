@@ -1,22 +1,18 @@
 import { HDR_CLASS } from "./snippets";
+import { AUTHOR, GITHUB_URL, LINKEDIN_URL } from "./siteFacts";
+
+const year = new Date().getFullYear();
 
 export function Footer() {
-  const year = new Date().getFullYear();
-
   return (
     <footer className="footer">
       <p>
-        <span className={`footer__mark ${HDR_CLASS}`}>hdr-glow</span> · © {year} Konstantin
-        Beregovoy ·{" "}
-        <a
-          href="https://www.linkedin.com/in/konstantin-beregovoy/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <span className={`footer__mark ${HDR_CLASS}`}>hdr-glow</span> · © {year} {AUTHOR} ·{" "}
+        <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
           LinkedIn
         </a>{" "}
         ·{" "}
-        <a href="https://github.com/Sting29/hdr-glow" target="_blank" rel="noopener noreferrer">
+        <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
           GitHub
         </a>
       </p>

@@ -20,7 +20,21 @@ import { SAMPLES } from "./samples";
 import { HDR_CLASS } from "./snippets";
 import { addGlowColor, sameColor } from "./tool/colors";
 import type { RGB } from "./tool/mask";
-import { MAX_SIDE } from "./tool/protocol";
+import {
+  HDR_JPEG_LEDE,
+  HDR_JPEG_NOTE,
+  HDR_JPEG_TITLE,
+  HDR_PREVIEW_NOTE,
+  HDR_SCREEN_NOTE,
+  IMAGE_LEDE,
+  IMAGE_TITLE,
+  PQ_JPEG_LEDE,
+  PQ_JPEG_NOTE,
+  PQ_JPEG_TITLE,
+  SIMULATED_PREVIEW_NOTE,
+  imageSaveNote,
+  svgSaveNote,
+} from "./siteFacts";
 import { describeSupport, type HdrSupport } from "./useHdrDisplay";
 
 type Mode = "live" | "simulated";
@@ -103,11 +117,9 @@ export function ImageTool({ support }: Props) {
   return (
     <section id="image" className="tool" aria-labelledby={`${ids}-title`}>
       <h2 id={`${ids}-title`} className={`section-title ${HDR_CLASS}`}>
-        Image
+        {IMAGE_TITLE}
       </h2>
-      <p className="section-lede">
-        Pick the colors that should outshine the page. Everything else stays exactly as drawn.
-      </p>
+      <p className="section-lede">{IMAGE_LEDE}</p>
 
       <DropZone hasImage={bitmap !== null} onFile={openFile} />
 
@@ -202,8 +214,8 @@ export function ImageTool({ support }: Props) {
               {mode === "live"
                 ? support.live
                   ? describeSupport(support)
-                  : "This shows the real HDR JPEG, which only glows on an HDR display in Chrome 137+ or Safari 26."
-                : "Preview adds light to the glowing parts so you can see the effect on any screen. The real glow is brighter."}
+                  : HDR_PREVIEW_NOTE
+                : SIMULATED_PREVIEW_NOTE}
             </p>
             <Compare
               aspect={bitmap.width / bitmap.height}
@@ -233,8 +245,8 @@ export function ImageTool({ support }: Props) {
 
           <div className="tool__results">
             <ResultCard
-              title="HDR JPEG"
-              lede="For websites and Apple Photos. An ordinary JPEG with a gain map that tells HDR screens where to glow."
+              title={HDR_JPEG_TITLE}
+              lede={HDR_JPEG_LEDE}
               file={hdrFile.file}
               busy={hdrFile.busy}
               downloadName={`${session.fileName}-hdr.jpg`}
@@ -244,15 +256,11 @@ export function ImageTool({ support }: Props) {
                   ? "Choose at least one color to make the HDR JPEG."
                   : "Building the HDR JPEG…"
               }
-              note={
-                support.live
-                  ? "This screen and browser show HDR: the glowing parts should be brighter than white."
-                  : "The glow only shows on an HDR display in Chrome 137+ or Safari 26; elsewhere this is a normal JPEG."
-              }
+              note={support.live ? HDR_SCREEN_NOTE : HDR_JPEG_NOTE}
             />
             <ResultCard
-              title="LinkedIn (PQ JPEG)"
-              lede="The glow is written into the pixels as Rec.2100 PQ, with a color profile that says so. Upload this one to LinkedIn."
+              title={PQ_JPEG_TITLE}
+              lede={PQ_JPEG_LEDE}
               file={pqFile.file}
               busy={pqFile.busy}
               downloadName={`${session.fileName}-linkedin-pq.jpg`}
@@ -262,16 +270,13 @@ export function ImageTool({ support }: Props) {
                   ? "Choose at least one color to make the LinkedIn file."
                   : "Building the LinkedIn file…"
               }
-              note="Check it in the LinkedIn app on your phone. Where a site strips the color profile this picture looks dark and flat, so use the HDR JPEG there."
+              note={PQ_JPEG_NOTE}
             />
           </div>
 
           <p className="tool__note">
-            The picture is saved as a full-quality JPEG, images larger than {MAX_SIDE}px are scaled
-            down, and transparent areas never glow.
-            {session.fromSvg
-              ? ` An SVG is drawn ${MAX_SIDE}px wide on its long side, and fonts or pictures it links to are not loaded, so turn text into outlines first.`
-              : ""}
+            {imageSaveNote}
+            {session.fromSvg ? svgSaveNote : ""}
           </p>
         </>
       ) : null}

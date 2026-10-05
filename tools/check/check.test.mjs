@@ -15,7 +15,11 @@ import { buildSwatch } from "../../src/tool/swatch.ts";
 import { encodeGrayJpeg, encodeRgbJpeg } from "../../src/tool/jpeg.ts";
 import { computeMask, suggestColors, toOklab } from "../../src/tool/mask.ts";
 import { detectBrowser } from "../../src/browserSupport.ts";
+import { MAX_BOOST } from "../../src/imageTool/config.ts";
+import { indexMarkdown, llmsTxt, SUMMARY } from "../../src/siteFacts.ts";
+import { MAX_SIDE } from "../../src/tool/protocol.ts";
 import {
+  REFERENCE_WHITE_NITS,
   createPqProfile,
   encodePq,
   pqDecode,
@@ -439,6 +443,25 @@ test("addGlowColor: stops at MAX_GLOW_COLORS", () => {
 test("toHex: pads each channel and round-trips with parseHex", () => {
   assert.equal(toHex({ r: 0, g: 10, b: 255 }), "#000aff");
   assert.deepEqual(parseHex(toHex({ r: 168, g: 107, b: 255 })), { r: 168, g: 107, b: 255 });
+});
+
+test("markdown twin stays tied to the page and the encoder constants", () => {
+  const html = readFileSync(new URL("../../index.html", import.meta.url), "utf8");
+  const markdown = indexMarkdown();
+  const llms = llmsTxt();
+
+  assert.ok(html.includes(SUMMARY));
+  assert.ok(html.includes('<link rel="alternate" type="text/markdown" href="/index.md" />'));
+  assert.ok(html.includes('<link rel="describedby" href="/llms.txt" />'));
+  assert.ok(markdown.includes(`${REFERENCE_WHITE_NITS} nits`));
+  assert.ok(markdown.includes(`${MAX_BOOST}×`));
+  assert.ok(markdown.includes(`${MAX_SIDE}px`));
+  assert.ok(markdown.includes(SUMMARY));
+  assert.equal(readFileSync(new URL("../../public/index.md", import.meta.url), "utf8"), markdown);
+  assert.equal(readFileSync(new URL("../../public/llms.txt", import.meta.url), "utf8"), llms);
+  assert.ok(llms.startsWith("# hdr-glow\n"));
+  assert.ok(llms.includes(`> ${SUMMARY}`));
+  assert.ok(llms.includes("https://glow.bereg.dev/index.md"));
 });
 
 test("sameColor: compares by value, not reference", () => {

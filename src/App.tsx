@@ -7,6 +7,21 @@ import { SwatchGenerator } from "./SwatchGenerator";
 import { TextExample } from "./TextExample";
 import { describeSupport, useHdrSupport } from "./useHdrDisplay";
 import { HDR_CLASS, HDR_CSS, PLAIN_CLASS, PLAIN_CSS, SWATCH_FILE } from "./snippets";
+import {
+  DEFAULT_GLOW_TEXT,
+  HDR_TEXT_METHOD,
+  HDR_TEXT_TITLE,
+  HERO_AFTER,
+  HERO_BEFORE,
+  HERO_CODE,
+  PLAIN_TEXT_METHOD,
+  PLAIN_TEXT_TITLE,
+  SWATCH_NOTE_LEAD,
+  TEXT_AFTER,
+  TEXT_BEFORE,
+  TEXT_TITLE,
+  swatchNoteTail,
+} from "./siteFacts";
 
 export function App() {
   const support = useHdrSupport();
@@ -20,8 +35,7 @@ export function App() {
         <header className="intro">
           <h1 className={HDR_CLASS}>hdr-glow</h1>
           <p>
-            HDR screens can show colors brighter than <code>#fff</code>. Make an image or a line of
-            text use that headroom.
+            {HERO_BEFORE} <code>{HERO_CODE}</code>. {HERO_AFTER}
           </p>
           <p className="status" data-hdr={support.live}>
             {describeSupport(support)}
@@ -36,28 +50,27 @@ export function App() {
 
         <section id="text" className="text" aria-labelledby="text-title">
           <h2 id="text-title" className={`section-title ${HDR_CLASS}`}>
-            Text
+            {TEXT_TITLE}
           </h2>
           <p className="section-lede">
-            No CSS color goes past <code>#fff</code>, but letters can be cut out of an HDR image
-            instead. Type a line in each box and compare.
+            {TEXT_BEFORE} <code>{HERO_CODE}</code>
+            {TEXT_AFTER}
           </p>
 
           <TextExample
-            title="HDR text"
-            method="background-clip: text over a gain-map JPEG"
+            title={HDR_TEXT_TITLE}
+            method={HDR_TEXT_METHOD}
             inputLabel="Glowing text"
             className={HDR_CLASS}
             css={HDR_CSS}
-            defaultText="Glow on HDR screens"
+            defaultText={DEFAULT_GLOW_TEXT}
             note={
               <>
-                Needs the swatch image next to your CSS:{" "}
+                {SWATCH_NOTE_LEAD}{" "}
                 <a href={`/${SWATCH_FILE}`} download>
                   download {SWATCH_FILE}
                 </a>{" "}
-                (3 KB, up to 7.5× brighter than #fff). Use it for headlines and accents, not
-                paragraphs.
+                {swatchNoteTail}
               </>
             }
           />
@@ -65,12 +78,12 @@ export function App() {
           <SwatchGenerator />
 
           <TextExample
-            title="Plain text"
-            method="color: #fff"
+            title={PLAIN_TEXT_TITLE}
+            method={PLAIN_TEXT_METHOD}
             inputLabel="Regular text"
             className={PLAIN_CLASS}
             css={PLAIN_CSS}
-            defaultText="Glow on HDR screens"
+            defaultText={DEFAULT_GLOW_TEXT}
           />
         </section>
 

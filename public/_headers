@@ -1,0 +1,12 @@
+/
+  Link: </index.md>; rel="alternate"; type="text/markdown", </llms.txt>; rel="describedby"
+
+/index.html
+  Link: </index.md>; rel="alternate"; type="text/markdown", </llms.txt>; rel="describedby"
+
+/index.md
+  Content-Type: text/markdown; charset=utf-8
+  Link: </llms.txt>; rel="describedby"
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
