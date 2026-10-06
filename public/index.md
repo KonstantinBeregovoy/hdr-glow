@@ -87,4 +87,4 @@ color: #fff.
 - Images larger than 2048 px are scaled down, transparent areas never glow, and the picture is saved again as a JPEG.
 - The simulated preview only suggests the effect.
 
-hdr-glow · © 2026 Konstantin Beregovoy · [LinkedIn](https://www.linkedin.com/in/konstantin-beregovoy/) · [GitHub](https://github.com/Sting29/hdr-glow)
+hdr-glow · © 2026 Konstantin Beregovoy · [LinkedIn](https://www.linkedin.com/in/konstantin-beregovoy/) · [GitHub](https://github.com/KonstantinBeregovoy/hdr-glow)
