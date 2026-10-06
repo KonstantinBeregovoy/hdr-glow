@@ -10,5 +10,5 @@ One page. The markdown version has the two JPEG formats, how the gain map works,
 
 ## Optional
 
-- [Source code](https://github.com/Sting29/hdr-glow): TypeScript JPEG encoder, gain-map container, and ICC profile
+- [Source code](https://github.com/KonstantinBeregovoy/hdr-glow): TypeScript JPEG encoder, gain-map container, and ICC profile
 - [Author on LinkedIn](https://www.linkedin.com/in/konstantin-beregovoy/)

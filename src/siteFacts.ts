@@ -6,7 +6,7 @@ import { HDR_CLASS, HDR_CSS, PLAIN_CSS, SWATCH_FILE, htmlFor } from "./snippets"
 import { MAX_SIDE } from "./tool/protocol";
 
 export const SITE_URL = "https://glow.bereg.dev";
-export const GITHUB_URL = "https://github.com/Sting29/hdr-glow";
+export const GITHUB_URL = "https://github.com/KonstantinBeregovoy/hdr-glow";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/konstantin-beregovoy/";
 export const AUTHOR = "Konstantin Beregovoy";
 
