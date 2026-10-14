@@ -6,7 +6,7 @@ import { Nav } from "./Nav";
 import { SwatchGenerator } from "./SwatchGenerator";
 import { TextExample } from "./TextExample";
 import { describeSupport, useHdrSupport } from "./useHdrDisplay";
-import { HDR_CLASS, HDR_CSS, PLAIN_CLASS, PLAIN_CSS, SWATCH_FILE } from "./snippets";
+import { HDR_CLASS, HDR_CSS, PAGE_CSS, PLAIN_CLASS, PLAIN_CSS, SWATCH_FILE } from "./snippets";
 import {
   DEFAULT_GLOW_TEXT,
   HDR_TEXT_METHOD,
@@ -29,7 +29,7 @@ export function App() {
   return (
     <>
       {/* The same CSS strings that are shown and copied below. */}
-      <style>{`${HDR_CSS}\n\n${PLAIN_CSS}`}</style>
+      <style>{PAGE_CSS}</style>
 
       <main className="page">
         <header className="intro">

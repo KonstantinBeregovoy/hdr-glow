@@ -1,6 +1,7 @@
 // Run: npm run check
 // Checks the pure image modules in Node with Vitest (no browser).
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { test } from "vitest";
 import { readFileSync } from "node:fs";
 import {
@@ -17,6 +18,7 @@ import { computeMask, suggestColors, toOklab } from "../../src/tool/mask.ts";
 import { detectBrowser } from "../../src/browserSupport.ts";
 import { MAX_BOOST } from "../../src/imageTool/config.ts";
 import { indexMarkdown, llmsTxt, SUMMARY } from "../../src/siteFacts.ts";
+import { PAGE_CSS } from "../../src/snippets.ts";
 import { MAX_SIDE } from "../../src/tool/protocol.ts";
 import {
   REFERENCE_WHITE_NITS,
@@ -462,6 +464,45 @@ test("markdown twin stays tied to the page and the encoder constants", () => {
   assert.ok(llms.startsWith("# hdr-glow\n"));
   assert.ok(llms.includes(`> ${SUMMARY}`));
   assert.ok(llms.includes("https://glow.bereg.dev/index.md"));
+});
+
+test("security headers: every path gets them, and the inline style hash matches the page", () => {
+  const text = readFileSync(new URL("../../public/_headers", import.meta.url), "utf8");
+  const lines = text.split("\n");
+  const start = lines.findIndex((line) => line.trim() === "/*");
+  assert.ok(start >= 0, "a /* block exists");
+  const headers = {};
+  for (const line of lines.slice(start + 1)) {
+    if (!/^\s+\S/.test(line)) break;
+    const colon = line.indexOf(":");
+    headers[line.slice(0, colon).trim()] = line.slice(colon + 1).trim();
+  }
+  for (const name of [
+    "Strict-Transport-Security",
+    "Content-Security-Policy",
+    "X-Content-Type-Options",
+    "X-Frame-Options",
+    "Referrer-Policy",
+    "Permissions-Policy",
+  ]) {
+    assert.ok(headers[name], `${name} is set`);
+  }
+
+  const csp = headers["Content-Security-Policy"];
+  const directive = (name) =>
+    csp
+      .split(";")
+      .map((part) => part.trim())
+      .find((part) => part.startsWith(`${name} `));
+  const hash = `'sha256-${createHash("sha256").update(PAGE_CSS).digest("base64")}'`;
+  assert.ok(
+    directive("style-src")?.includes(hash),
+    `style-src must allow the injected <style> by hash. Put this in public/_headers: ${hash}`,
+  );
+  assert.ok(!directive("script-src").includes("'unsafe-inline'"), "scripts are not allowed inline");
+  assert.ok(!directive("script-src").includes("'unsafe-eval'"), "scripts are not allowed to eval");
+  assert.ok(directive("frame-ancestors")?.includes("'none'"), "the page cannot be framed");
+  assert.ok(directive("object-src")?.includes("'none'"), "no plugins");
 });
 
 test("sameColor: compares by value, not reference", () => {
