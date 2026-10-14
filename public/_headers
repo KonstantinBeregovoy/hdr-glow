@@ -1,3 +1,26 @@
+# Cloudflare (Workers static assets). Applied on top of the rules below.
+#
+# Content-Security-Policy:
+# - script-src has no 'unsafe-inline'. Cloudflare Web Analytics adds one external
+#   script (static.cloudflareinsights.com) and posts to /cdn-cgi/rum on this origin.
+# - The page injects one <style> element (the HDR and plain text CSS shown in the
+#   examples). It is allowed by hash instead of 'unsafe-inline'. If src/snippets.ts
+#   changes, tools/check fails and prints the new hash to put here.
+# - style-src-attr 'unsafe-inline' is for style="" attributes that React sets (chip
+#   swatch colors, compare slider position).
+# - img-src blob: is for the files the tool builds in the browser (preview, results).
+# - Cross-Origin-Resource-Policy is left out on purpose: the swatch image is meant to be
+#   used from other sites, and og-image.png is fetched by link-preview bots.
+
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'sha256-OWWoMVzP+S2KoI1bMGNRrDrjGRDZ5tFvc0e4Q/jGdHw='; style-src-attr 'unsafe-inline'; img-src 'self' blob:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+
 /
   Link: </index.md>; rel="alternate"; type="text/markdown", </llms.txt>; rel="describedby"
 

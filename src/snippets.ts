@@ -25,6 +25,12 @@ export const PLAIN_CSS = `.${PLAIN_CLASS} {
   color: #fff;
 }`;
 
+/**
+ * The one <style> element the page injects. public/_headers allows it by hash, so
+ * this exact string (and nothing else) is what the Content-Security-Policy trusts.
+ */
+export const PAGE_CSS = `${HDR_CSS}\n\n${PLAIN_CSS}`;
+
 const escapeHtml = (value: string) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
