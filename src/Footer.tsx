@@ -1,5 +1,5 @@
 import { HDR_CLASS } from "./snippets";
-import { AUTHOR, GITHUB_URL, LINKEDIN_URL } from "./siteFacts";
+import { AUTHOR, GITHUB_URL, LINKEDIN_URL, PORTFOLIO_URL } from "./siteFacts";
 
 const year = new Date().getFullYear();
 
@@ -8,6 +8,10 @@ export function Footer() {
     <footer className="footer">
       <p>
         <span className={`footer__mark ${HDR_CLASS}`}>hdr-glow</span> · © {year} {AUTHOR} ·{" "}
+        <a href={PORTFOLIO_URL} target="_blank" rel="noopener noreferrer">
+          Portfolio
+        </a>{" "}
+        ·{" "}
         <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
           LinkedIn
         </a>{" "}

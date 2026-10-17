@@ -8,6 +8,7 @@ import { MAX_SIDE } from "./tool/protocol";
 export const SITE_URL = "https://glow.bereg.dev";
 export const GITHUB_URL = "https://github.com/KonstantinBeregovoy/hdr-glow";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/konstantin-beregovoy/";
+export const PORTFOLIO_URL = "https://bereg.dev";
 export const AUTHOR = "Konstantin Beregovoy";
 
 export const SUMMARY =
@@ -170,7 +171,7 @@ ${steps}
 
 ${limits}
 
-hdr-glow · © ${year} ${AUTHOR} · [LinkedIn](${LINKEDIN_URL}) · [GitHub](${GITHUB_URL})
+hdr-glow · © ${year} ${AUTHOR} · [Portfolio](${PORTFOLIO_URL}) · [LinkedIn](${LINKEDIN_URL}) · [GitHub](${GITHUB_URL})
 `;
 }
 
@@ -188,6 +189,7 @@ One page. The markdown version has the two JPEG formats, how the gain map works,
 ## Optional
 
 - [Source code](${GITHUB_URL}): TypeScript JPEG encoder, gain-map container, and ICC profile
+- [Author portfolio](${PORTFOLIO_URL})
 - [Author on LinkedIn](${LINKEDIN_URL})
 `;
 }
