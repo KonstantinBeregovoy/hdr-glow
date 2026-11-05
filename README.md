@@ -28,3 +28,44 @@ CI runs lint, format:check, check and build on every pull request. Node 22 (see 
 
 Check on an HDR screen (Chrome 137+, Safari 26 / iOS 26): the glowing parts should look brighter
 than white. On other screens and browsers the files still look like normal pictures.
+
+## Detecting an HDR screen
+
+The status line at the top of the site says whether your screen and browser show HDR. To do the
+same on your own site, use the `dynamic-range` media query. It matches when the screen the window
+is on can show HDR.
+
+First make sure HDR is on: macOS, System Settings, Displays, High Dynamic Range (if your display
+offers it); Windows, Settings, System, Display, Use HDR.
+
+In CSS:
+
+```css
+.headline {
+  color: #fff; /* every screen */
+}
+
+@media (dynamic-range: high) {
+  .headline {
+    /* HDR screens only */
+  }
+}
+```
+
+In JavaScript:
+
+```js
+const query = window.matchMedia("(dynamic-range: high)");
+
+function update() {
+  document.documentElement.classList.toggle("hdr", query.matches);
+}
+
+update();
+query.addEventListener("change", update); // fires when the window moves to another display
+```
+
+The query reports the screen, not the browser. A browser that cannot draw HDR images still matches
+on an HDR screen, so the site also checks the browser version (Chrome 137+ and Safari 26 show HDR
+today) before it calls the glow real. The full version is in `src/useHdrDisplay.ts` and
+`src/browserSupport.ts`.

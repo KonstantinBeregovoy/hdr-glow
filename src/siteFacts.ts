@@ -2,7 +2,15 @@
 // wording change shows up in the HTML and at /index.md together.
 
 import { MAX_BOOST } from "./imageTool/config";
-import { HDR_CLASS, HDR_CSS, PLAIN_CSS, SWATCH_FILE, htmlFor } from "./snippets";
+import {
+  DETECT_CSS,
+  DETECT_JS,
+  HDR_CLASS,
+  HDR_CSS,
+  PLAIN_CSS,
+  SWATCH_FILE,
+  htmlFor,
+} from "./snippets";
 import { MAX_SIDE } from "./tool/protocol";
 
 export const SITE_URL = "https://glow.bereg.dev";
@@ -66,6 +74,29 @@ export const swatchNoteTail = `(3 KB, up to ${MAX_BOOST}× brighter than #fff). 
 export const SWATCH_HINT =
   "This tiny image is what the CSS above cuts the letters out of. Lower the strength for a subtler glow.";
 
+export const DETECT_TITLE = "Detect HDR";
+export const DETECT_LEDE =
+  "The line under the title at the top of this page already tells you whether your screen and browser show HDR. To do the same on your own site, ask the browser.";
+
+export const DETECT_SCREEN_TITLE = "Check your screen";
+export const DETECT_SCREEN_STEPS = [
+  "macOS: System Settings, Displays, turn on High Dynamic Range if your display offers it.",
+  "Windows: Settings, System, Display, turn on Use HDR.",
+  "Open this page in Chrome 137+ or Safari 26 and read the status line at the top.",
+];
+
+export const DETECT_CSS_TITLE = "In CSS";
+export const DETECT_CSS_LEDE =
+  "The dynamic-range media query matches when the screen the window is on can show HDR. Put the glow inside it and leave a plain color outside.";
+
+export const DETECT_JS_TITLE = "In JavaScript";
+export const DETECT_JS_LEDE =
+  "The same query works from script. Listen for changes, because the answer follows the window when you drag it to another display.";
+
+export const DETECT_LIMIT_TITLE = "What it does not tell you";
+export const DETECT_LIMIT =
+  "The query reports the screen, not the browser. A browser that cannot draw HDR images still matches on an HDR screen. This page also checks the browser version (Chrome 137+ and Safari 26 show HDR today) before it calls the glow real.";
+
 export const HOW_TITLE = "How it works";
 export const HOW_IT_WORKS = [
   {
@@ -105,6 +136,7 @@ export function indexMarkdown(): string {
   ).join("\n");
   const limits = LIMITS.map((item) => `- ${item}`).join("\n");
   const features = FEATURES.map((item) => `- ${item}`).join("\n");
+  const screenSteps = DETECT_SCREEN_STEPS.map((item) => `- ${item}`).join("\n");
   const year = new Date().getFullYear();
 
   return `# hdr-glow
@@ -163,6 +195,34 @@ ${PLAIN_TEXT_METHOD}.
 ${PLAIN_CSS}
 \`\`\`
 
+## ${DETECT_TITLE}
+
+${DETECT_LEDE}
+
+### ${DETECT_SCREEN_TITLE}
+
+${screenSteps}
+
+### ${DETECT_CSS_TITLE}
+
+${DETECT_CSS_LEDE}
+
+\`\`\`css
+${DETECT_CSS}
+\`\`\`
+
+### ${DETECT_JS_TITLE}
+
+${DETECT_JS_LEDE}
+
+\`\`\`js
+${DETECT_JS}
+\`\`\`
+
+### ${DETECT_LIMIT_TITLE}
+
+${DETECT_LIMIT}
+
 ## ${HOW_TITLE}
 
 ${steps}
@@ -180,11 +240,11 @@ export function llmsTxt(): string {
 
 > ${SUMMARY}
 
-One page. The markdown version has the two JPEG formats, how the gain map works, the limits, and the CSS for glowing text.
+One page. The markdown version has the two JPEG formats, how the gain map works, the limits, the CSS for glowing text, and how to detect an HDR screen in CSS and JavaScript.
 
 ## Page
 
-- [hdr-glow](${SITE_URL}/index.md): Formats, gain map, limits, and the CSS for glowing text
+- [hdr-glow](${SITE_URL}/index.md): Formats, gain map, limits, the CSS for glowing text, and HDR screen detection
 
 ## Optional
 

@@ -71,6 +71,51 @@ color: #fff.
 }
 ```
 
+## Detect HDR
+
+The line under the title at the top of this page already tells you whether your screen and browser show HDR. To do the same on your own site, ask the browser.
+
+### Check your screen
+
+- macOS: System Settings, Displays, turn on High Dynamic Range if your display offers it.
+- Windows: Settings, System, Display, turn on Use HDR.
+- Open this page in Chrome 137+ or Safari 26 and read the status line at the top.
+
+### In CSS
+
+The dynamic-range media query matches when the screen the window is on can show HDR. Put the glow inside it and leave a plain color outside.
+
+```css
+.headline {
+  color: #fff; /* every screen */
+}
+
+@media (dynamic-range: high) {
+  .headline {
+    /* HDR screens only */
+  }
+}
+```
+
+### In JavaScript
+
+The same query works from script. Listen for changes, because the answer follows the window when you drag it to another display.
+
+```js
+const query = window.matchMedia("(dynamic-range: high)");
+
+function update() {
+  document.documentElement.classList.toggle("hdr", query.matches);
+}
+
+update();
+query.addEventListener("change", update); // fires when the window moves to another display
+```
+
+### What it does not tell you
+
+The query reports the screen, not the browser. A browser that cannot draw HDR images still matches on an HDR screen. This page also checks the browser version (Chrome 137+ and Safari 26 show HDR today) before it calls the glow real.
+
 ## How it works
 
 1. **Mask.** Each pixel gets a score from 0 to 255: how close it is to one of your colors.
