@@ -5,6 +5,7 @@
 const LINKS = [
   { href: "#image", label: "Image" },
   { href: "#text", label: "Text" },
+  { href: "#detect-hdr", label: "Detect HDR" },
   { href: "#how-it-works", label: "How it works" },
 ];
 

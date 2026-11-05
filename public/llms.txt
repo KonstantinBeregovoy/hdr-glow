@@ -2,11 +2,11 @@
 
 > Make colors brighter than white on HDR screens, entirely in the browser. Upload a logo, pick the colors that should glow, and download an HDR JPEG or a PQ JPEG for LinkedIn.
 
-One page. The markdown version has the two JPEG formats, how the gain map works, the limits, and the CSS for glowing text.
+One page. The markdown version has the two JPEG formats, how the gain map works, the limits, the CSS for glowing text, and how to detect an HDR screen in CSS and JavaScript.
 
 ## Page
 
-- [hdr-glow](https://glow.bereg.dev/index.md): Formats, gain map, limits, and the CSS for glowing text
+- [hdr-glow](https://glow.bereg.dev/index.md): Formats, gain map, limits, the CSS for glowing text, and HDR screen detection
 
 ## Optional
 

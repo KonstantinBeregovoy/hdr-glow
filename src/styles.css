@@ -814,3 +814,14 @@ a {
 .info li strong {
   color: var(--paper);
 }
+
+.info h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.info .code {
+  max-width: 44rem;
+  margin-top: 0.75rem;
+}

@@ -1,3 +1,4 @@
+import { DetectHdr } from "./DetectHdr";
 import { Explainer } from "./Explainer";
 import { Features } from "./Features";
 import { Footer } from "./Footer";
@@ -86,6 +87,8 @@ export function App() {
             defaultText={DEFAULT_GLOW_TEXT}
           />
         </section>
+
+        <DetectHdr />
 
         <Explainer />
       </main>

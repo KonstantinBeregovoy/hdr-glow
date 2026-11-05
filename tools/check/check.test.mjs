@@ -18,7 +18,7 @@ import { computeMask, suggestColors, toOklab } from "../../src/tool/mask.ts";
 import { detectBrowser } from "../../src/browserSupport.ts";
 import { MAX_BOOST } from "../../src/imageTool/config.ts";
 import { indexMarkdown, llmsTxt, SUMMARY } from "../../src/siteFacts.ts";
-import { PAGE_CSS } from "../../src/snippets.ts";
+import { DETECT_CSS, DETECT_JS, PAGE_CSS } from "../../src/snippets.ts";
 import { MAX_SIDE } from "../../src/tool/protocol.ts";
 import {
   REFERENCE_WHITE_NITS,
@@ -459,6 +459,9 @@ test("markdown twin stays tied to the page and the encoder constants", () => {
   assert.ok(markdown.includes(`${MAX_BOOST}×`));
   assert.ok(markdown.includes(`${MAX_SIDE}px`));
   assert.ok(markdown.includes(SUMMARY));
+  assert.ok(markdown.includes("## Detect HDR"));
+  assert.ok(markdown.includes(DETECT_CSS));
+  assert.ok(markdown.includes(DETECT_JS));
   assert.equal(readFileSync(new URL("../../public/index.md", import.meta.url), "utf8"), markdown);
   assert.equal(readFileSync(new URL("../../public/llms.txt", import.meta.url), "utf8"), llms);
   assert.ok(llms.startsWith("# hdr-glow\n"));
