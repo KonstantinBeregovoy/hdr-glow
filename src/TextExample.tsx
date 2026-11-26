@@ -1,5 +1,6 @@
 import { useId, useState, type ReactNode } from "react";
-import { CodeBlock } from "./CodeBlock";
+import { CodeBlock, Field, TextInput } from "bereg-ds/react";
+import { copyText } from "./copyText";
 import { htmlFor } from "./snippets";
 
 type Props = {
@@ -29,21 +30,18 @@ export function TextExample({
       <div className="example__demo">
         <header className="example__head">
           <h3 id={`${inputId}-title`}>{title}</h3>
-          <p>{method}</p>
+          <p className="text-meta">{method}</p>
         </header>
 
-        <label className="field" htmlFor={inputId}>
-          <span>{inputLabel}</span>
-          <input
-            id={inputId}
-            type="text"
+        <Field label={inputLabel} id={inputId}>
+          <TextInput
             value={text}
             maxLength={80}
             spellCheck={false}
             autoComplete="off"
             onChange={(e) => setText(e.target.value)}
           />
-        </label>
+        </Field>
 
         <div className="stage" aria-live="off">
           {text.trim() ? (
@@ -55,8 +53,8 @@ export function TextExample({
       </div>
 
       <div className="example__code">
-        <CodeBlock label="HTML" code={htmlFor(className, text)} />
-        <CodeBlock label="CSS" code={css} />
+        <CodeBlock label="HTML" code={htmlFor(className, text)} onCopy={copyText} />
+        <CodeBlock label="CSS" code={css} onCopy={copyText} />
         {note ? <p className="example__note">{note}</p> : null}
       </div>
     </section>

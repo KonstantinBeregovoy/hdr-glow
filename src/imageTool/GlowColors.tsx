@@ -1,3 +1,4 @@
+import { Button, Tag, TextInput } from "bereg-ds/react";
 import { useId, useState } from "react";
 import { MAX_GLOW_COLORS, parseHex, sameColor, toHex } from "../tool/colors";
 import type { RGB } from "../tool/mask";
@@ -35,20 +36,18 @@ export function GlowColors({ colors, suggested, onAdd, onRemove }: Props) {
 
   return (
     <div className="field">
-      <span>Glowing colors</span>
+      <span className="field-label">Glowing colors</span>
       <ul className="chips">
         {colors.map((color) => (
           <li key={toHex(color)}>
-            <button
-              type="button"
+            <Tag
               className="chip"
-              aria-label={`Remove ${toHex(color)}`}
-              onClick={() => onRemove(color)}
+              onRemove={() => onRemove(color)}
+              removeLabel={`Remove ${toHex(color)}`}
             >
               <span className="chip__swatch" style={{ background: toHex(color) }} />
               <code>{toHex(color)}</code>
-              <span aria-hidden="true">×</span>
-            </button>
+            </Tag>
           </li>
         ))}
         {colors.length === 0 ? (
@@ -56,7 +55,7 @@ export function GlowColors({ colors, suggested, onAdd, onRemove }: Props) {
         ) : null}
       </ul>
 
-      <p className="hex-add__hint">Know the exact color? Type its hex code to add it here.</p>
+      <p className="field-hint">Know the exact color? Type its hex code to add it here.</p>
 
       <form
         className="hex-add"
@@ -65,13 +64,12 @@ export function GlowColors({ colors, suggested, onAdd, onRemove }: Props) {
           addHexColor();
         }}
       >
-        <label className="sr-only" htmlFor={`${id}-hex`}>
+        <label className="visually-hidden" htmlFor={`${id}-hex`}>
           Add a color by hex code
         </label>
-        <input
+        <TextInput
           id={`${id}-hex`}
           className="hex-add__input"
-          type="text"
           inputMode="text"
           placeholder="#rrggbb"
           value={hexInput}
@@ -81,12 +79,12 @@ export function GlowColors({ colors, suggested, onAdd, onRemove }: Props) {
             setHexError(null);
           }}
         />
-        <button type="submit" className="hex-add__button">
+        <Button type="submit" variant="secondary" size="sm">
           Add color
-        </button>
+        </Button>
       </form>
       {hexError ? (
-        <p className="hex-add__error" role="alert">
+        <p className="field-error hex-add__error" role="alert">
           {hexError}
         </p>
       ) : null}
@@ -97,11 +95,11 @@ export function GlowColors({ colors, suggested, onAdd, onRemove }: Props) {
           <ul className="chips">
             {notChosen.map((color) => (
               <li key={toHex(color)}>
-                <button type="button" className="chip" onClick={() => onAdd(color)}>
+                <Tag as="button" className="chip" onClick={() => onAdd(color)}>
                   <span className="chip__swatch" style={{ background: toHex(color) }} />
                   <code>{toHex(color)}</code>
                   <span aria-hidden="true">+</span>
-                </button>
+                </Tag>
               </li>
             ))}
           </ul>

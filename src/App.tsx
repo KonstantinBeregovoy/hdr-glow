@@ -1,3 +1,4 @@
+import { Section, Sections } from "bereg-ds/react";
 import { DetectHdr } from "./DetectHdr";
 import { Explainer } from "./Explainer";
 import { Features } from "./Features";
@@ -32,10 +33,14 @@ export function App() {
       {/* The same CSS strings that are shown and copied below. */}
       <style>{PAGE_CSS}</style>
 
-      <main className="page">
+      <a className="skip" href="#main">
+        Skip to content
+      </a>
+
+      <main id="main" className="wrap glow-main">
         <header className="intro">
           <h1 className={HDR_CLASS}>hdr-glow</h1>
-          <p>
+          <p className="lede">
             {HERO_BEFORE} <code>{HERO_CODE}</code>. {HERO_AFTER}
           </p>
           <p className="status" data-hdr={support.live}>
@@ -47,50 +52,55 @@ export function App() {
 
         <Features />
 
-        <ImageTool support={support} />
+        <Sections>
+          <ImageTool support={support} />
 
-        <section id="text" className="text" aria-labelledby="text-title">
-          <h2 id="text-title" className={`section-title ${HDR_CLASS}`}>
-            {TEXT_TITLE}
-          </h2>
-          <p className="section-lede">
-            {TEXT_BEFORE} <code>{HERO_CODE}</code>
-            {TEXT_AFTER}
-          </p>
+          <Section
+            id="text-title"
+            sectionId="text"
+            title={TEXT_TITLE}
+            headingClassName={HDR_CLASS}
+            className="text"
+          >
+            <p className="lede">
+              {TEXT_BEFORE} <code>{HERO_CODE}</code>
+              {TEXT_AFTER}
+            </p>
 
-          <TextExample
-            title={HDR_TEXT_TITLE}
-            method={HDR_TEXT_METHOD}
-            inputLabel="Glowing text"
-            className={HDR_CLASS}
-            css={HDR_CSS}
-            defaultText={DEFAULT_GLOW_TEXT}
-            note={
-              <>
-                {SWATCH_NOTE_LEAD}{" "}
-                <a href={`/${SWATCH_FILE}`} download>
-                  download {SWATCH_FILE}
-                </a>{" "}
-                {swatchNoteTail}
-              </>
-            }
-          />
+            <TextExample
+              title={HDR_TEXT_TITLE}
+              method={HDR_TEXT_METHOD}
+              inputLabel="Glowing text"
+              className={HDR_CLASS}
+              css={HDR_CSS}
+              defaultText={DEFAULT_GLOW_TEXT}
+              note={
+                <>
+                  {SWATCH_NOTE_LEAD}{" "}
+                  <a href={`/${SWATCH_FILE}`} download>
+                    download {SWATCH_FILE}
+                  </a>{" "}
+                  {swatchNoteTail}
+                </>
+              }
+            />
 
-          <SwatchGenerator />
+            <SwatchGenerator />
 
-          <TextExample
-            title={PLAIN_TEXT_TITLE}
-            method={PLAIN_TEXT_METHOD}
-            inputLabel="Regular text"
-            className={PLAIN_CLASS}
-            css={PLAIN_CSS}
-            defaultText={DEFAULT_GLOW_TEXT}
-          />
-        </section>
+            <TextExample
+              title={PLAIN_TEXT_TITLE}
+              method={PLAIN_TEXT_METHOD}
+              inputLabel="Regular text"
+              className={PLAIN_CLASS}
+              css={PLAIN_CSS}
+              defaultText={DEFAULT_GLOW_TEXT}
+            />
+          </Section>
 
-        <DetectHdr />
+          <DetectHdr />
 
-        <Explainer />
+          <Explainer />
+        </Sections>
       </main>
 
       <Footer />

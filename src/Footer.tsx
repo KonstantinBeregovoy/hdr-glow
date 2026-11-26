@@ -1,3 +1,4 @@
+import { SiteFooter } from "bereg-ds/react";
 import { HDR_CLASS } from "./snippets";
 import { AUTHOR, BLOG_URL, GITHUB_URL, LINKEDIN_URL, PORTFOLIO_URL } from "./siteFacts";
 
@@ -5,8 +6,8 @@ const year = new Date().getFullYear();
 
 export function Footer() {
   return (
-    <footer className="footer">
-      <p>
+    <SiteFooter>
+      <p className="glow-footer">
         <span className={`footer__mark ${HDR_CLASS}`}>hdr-glow</span> · © {year} {AUTHOR} ·{" "}
         <a href={PORTFOLIO_URL} target="_blank" rel="noopener noreferrer">
           Portfolio
@@ -24,6 +25,6 @@ export function Footer() {
           GitHub
         </a>
       </p>
-    </footer>
+    </SiteFooter>
   );
 }

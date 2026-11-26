@@ -1,3 +1,4 @@
+import { Button, Field, Range } from "bereg-ds/react";
 import { useEffect, useRef, useState } from "react";
 import { SWATCH_HINT } from "./siteFacts";
 import { buildSwatch, MAX_SWATCH_BOOST, MIN_SWATCH_BOOST } from "./tool/swatch";
@@ -33,25 +34,32 @@ export function SwatchGenerator() {
 
   return (
     <div className="swatch-gen">
-      <p className="swatch-gen__hint">{SWATCH_HINT}</p>
-      <label className="field">
-        <span>
-          Glow strength: {boost.toFixed(1)}× brighter than white (+{Math.log2(boost).toFixed(1)}{" "}
-          stops)
-        </span>
-        <input
-          type="range"
+      <p className="field-hint">{SWATCH_HINT}</p>
+      <Field
+        label={
+          <>
+            Glow strength: {boost.toFixed(1)}× brighter than white (+{Math.log2(boost).toFixed(1)}{" "}
+            stops)
+          </>
+        }
+      >
+        <Range
           min={MIN_SWATCH_BOOST}
           max={MAX_SWATCH_BOOST}
           step="0.1"
           value={boost}
           onChange={(event) => setBoost(Number(event.target.value))}
         />
-      </label>
+      </Field>
       {file ? (
-        <a className="button" href={file.url} download={fileName}>
+        <Button
+          variant="secondary"
+          className="swatch-gen__download"
+          href={file.url}
+          download={fileName}
+        >
           Download glow image ({Math.round(file.size / 1024)} KB)
-        </a>
+        </Button>
       ) : null}
     </div>
   );
