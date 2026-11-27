@@ -52,7 +52,7 @@ This tiny image is what the CSS above cuts the letters out of. Lower the strengt
 @media (dynamic-range: high) {
   @supports (background-clip: text) or (-webkit-background-clip: text) {
     .hdr-glow-text {
-      background: url("hdr-glow-swatch-7.5x.jpg") center / cover;
+      background: url("hdr-glow-swatch-7.5x.jpg") center / cover no-repeat;
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;

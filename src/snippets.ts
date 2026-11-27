@@ -13,7 +13,7 @@ export const HDR_CSS = `.${HDR_CLASS} {
 @media (dynamic-range: high) {
   @supports (background-clip: text) or (-webkit-background-clip: text) {
     .${HDR_CLASS} {
-      background: url("${SWATCH_FILE}") center / cover;
+      background: url("${SWATCH_FILE}") center / cover no-repeat;
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
