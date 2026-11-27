@@ -1,4 +1,4 @@
-/* Candidate for Bereg DS: Compare (before / after slider).
+/* Compare (before / after slider), glow's own component: it stays in this project, not in Bereg DS.
    Two pictures on top of each other with a draggable edge; the range input on top is the keyboard path.
    Built only from Bereg DS tokens. Markup and behaviour: src/Compare.tsx. */
 

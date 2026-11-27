@@ -1,6 +1,6 @@
 /* glow on Bereg DS. Fonts, tokens, base styles and components come from bereg-ds/bereg-ds.css (dark theme only).
    This file is the page layout and the tool's own parts, built only from Bereg DS tokens.
-   Exceptions to the system are marked "Exception:". Candidates for the system: src/ds-candidates/. */
+   Exceptions to the system are marked "Exception:". The Compare slider has its own file: src/compare.css. */
 
 html {
   scroll-padding-top: var(--space-16); /* keeps a section's own heading clear of the sticky nav */
