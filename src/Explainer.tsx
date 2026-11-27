@@ -9,7 +9,7 @@ export function Explainer() {
         id="how-title"
         sectionId="how-it-works"
         title={HOW_TITLE}
-        headingClassName={HDR_CLASS}
+        headingClassName={`${HDR_CLASS} text-post-title`}
       >
         <div className="prose">
           <ol>
@@ -22,7 +22,11 @@ export function Explainer() {
         </div>
       </Section>
 
-      <Section id="limits-title" title={LIMITS_TITLE} headingClassName={HDR_CLASS}>
+      <Section
+        id="limits-title"
+        title={LIMITS_TITLE}
+        headingClassName={`${HDR_CLASS} text-post-title`}
+      >
         <div className="prose">
           <ul>
             {LIMITS.map((item) => (

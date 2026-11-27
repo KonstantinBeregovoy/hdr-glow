@@ -39,7 +39,7 @@ export function App() {
 
       <main id="main" className="wrap glow-main">
         <header className="intro">
-          <h1 className={HDR_CLASS}>hdr-glow</h1>
+          <h1 className={`${HDR_CLASS} text-h2-article`}>hdr-glow</h1>
           <p className="lede">
             {HERO_BEFORE} <code>{HERO_CODE}</code>. {HERO_AFTER}
           </p>
@@ -59,7 +59,7 @@ export function App() {
             id="text-title"
             sectionId="text"
             title={TEXT_TITLE}
-            headingClassName={HDR_CLASS}
+            headingClassName={`${HDR_CLASS} text-post-title`}
             className="text"
           >
             <p className="lede">

@@ -20,9 +20,8 @@ export function DetectHdr() {
       id="detect-title"
       sectionId="detect-hdr"
       title={DETECT_TITLE}
-      headingClassName={HDR_CLASS}
+      headingClassName={`${HDR_CLASS} text-post-title`}
     >
-      {/* .prose is split around the code blocks, so its own <pre> style does not reach them. */}
       <div className="prose">
         <p>{DETECT_LEDE}</p>
 
@@ -35,16 +34,12 @@ export function DetectHdr() {
 
         <h3>{DETECT_CSS_TITLE}</h3>
         <p>{DETECT_CSS_LEDE}</p>
-      </div>
-      <CodeBlock label="CSS" code={DETECT_CSS} onCopy={copyText} />
+        <CodeBlock label="CSS" code={DETECT_CSS} onCopy={copyText} />
 
-      <div className="prose">
         <h3>{DETECT_JS_TITLE}</h3>
         <p>{DETECT_JS_LEDE}</p>
-      </div>
-      <CodeBlock label="JavaScript" code={DETECT_JS} onCopy={copyText} />
+        <CodeBlock label="JavaScript" code={DETECT_JS} onCopy={copyText} />
 
-      <div className="prose">
         <h3>{DETECT_LIMIT_TITLE}</h3>
         <p>{DETECT_LIMIT}</p>
       </div>

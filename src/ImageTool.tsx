@@ -119,7 +119,7 @@ export function ImageTool({ support }: Props) {
       id="image-title"
       sectionId="image"
       title={IMAGE_TITLE}
-      headingClassName={HDR_CLASS}
+      headingClassName={`${HDR_CLASS} text-post-title`}
       className="tool"
     >
       <p className="lede">{IMAGE_LEDE}</p>

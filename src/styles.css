@@ -2,6 +2,13 @@
    This file is the page layout and the tool's own parts, built only from Bereg DS tokens.
    Exceptions to the system are marked "Exception:". The Compare slider has its own file: src/compare.css. */
 
+/* Exception: the page background is one step darker than Bereg DS (--prim-navy-950 instead of -900),
+   as glow had before the move: the darker the page, the brighter the HDR glow looks next to it. */
+:root {
+  --bg: var(--prim-navy-950);
+  --header-bg: color-mix(in srgb, var(--prim-navy-950) 88%, transparent);
+}
+
 html {
   scroll-padding-top: var(--space-16); /* keeps a section's own heading clear of the sticky nav */
 }
@@ -77,12 +84,6 @@ code {
   margin: 0 0 var(--space-6);
 }
 
-/* Code blocks between .prose parts (Detect HDR). */
-.section > .code-block {
-  max-width: 68ch;
-  margin-block: 0 var(--space-6);
-}
-
 /* ---------- text examples ---------- */
 
 .example {
@@ -115,12 +116,6 @@ code {
   min-width: 0;
 }
 
-/* A grid item is as wide as its longest code line by default; this lets the code scroll inside instead.
-   Reported to Bereg DS: .code-block could carry min-width: 0 itself. */
-.example__code > .code-block {
-  min-width: 0;
-}
-
 .example__note {
   margin: 0;
   font-size: var(--font-size-sm);
@@ -129,6 +124,7 @@ code {
 
 /* The sample text on the page background, as a visitor's own page would show it. */
 .stage {
+  container-type: inline-size; /* the sample text below is sized to this box, not to the window */
   display: flex;
   align-items: center;
   min-height: clamp(9rem, 20vw, 13rem);
@@ -138,9 +134,10 @@ code {
   background: var(--bg);
 }
 
-/* Exception: above the type scale (up to --font-size-display), to show the glow at headline size. */
+/* Exception: above the type scale (up to --font-size-display), to show the glow at headline size.
+   15cqi keeps the default "Glow on HDR screens" on two lines at any width ("Glow on HDR" is about 5.9em wide). */
 .stage__text {
-  font-size: clamp(2.5rem, 6.2vw, var(--font-size-display));
+  font-size: clamp(2rem, 15cqi, var(--font-size-display));
   font-weight: var(--weight-bold);
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
@@ -240,12 +237,6 @@ code {
 .chips__empty {
   font-size: var(--font-size-sm);
   color: var(--muted);
-}
-
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
 }
 
 .chip code {
