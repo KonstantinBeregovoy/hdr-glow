@@ -3,10 +3,17 @@ import type { RGB } from "./mask";
 /** Upper bound on the glow color list: past this the mask gets slow to compute and the chip row gets unreadable. */
 export const MAX_GLOW_COLORS = 12;
 
+/** Shown when a new color would go past MAX_GLOW_COLORS. */
+export const GLOW_COLORS_FULL = `Up to ${MAX_GLOW_COLORS} colors. Remove one first.`;
+
 export const toHex = ({ r, g, b }: RGB) =>
   `#${[r, g, b].map((v) => v.toString(16).padStart(2, "0")).join("")}`;
 
 export const sameColor = (a: RGB, b: RGB) => a.r === b.r && a.g === b.g && a.b === b.b;
+
+/** True when the color is not in the list yet and the list has no room for it. */
+export const isGlowListFull = (list: RGB[], color: RGB) =>
+  list.length >= MAX_GLOW_COLORS && !list.some((c) => sameColor(c, color));
 
 /** Accepts "#fff", "fff", "#ffffff" or "ffffff"; null if it isn't a valid color. */
 export const parseHex = (value: string): RGB | null => {
