@@ -24,7 +24,7 @@ analytics of its own.
     npm run format     # Prettier (format:check only verifies)
     npm run build      # type check + production build in dist/
 
-CI runs lint, format:check, check and build on every pull request. Node 22 (see `.nvmrc`).
+CI runs lint, format:check, check and build on every pull request. Node 26.13.1 (see `.nvmrc`).
 
 Check on an HDR screen (Chrome 137+, Safari 26 / iOS 26): the glowing parts should look brighter
 than white. On other screens and browsers the files still look like normal pictures.
