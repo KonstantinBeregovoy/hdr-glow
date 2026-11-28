@@ -13,7 +13,7 @@ import {
 } from "./snippets";
 import { MAX_SIDE } from "./tool/protocol";
 
-export const SITE_URL = "https://glow.bereg.dev";
+const SITE_URL = "https://glow.bereg.dev";
 export const GITHUB_URL = "https://github.com/KonstantinBeregovoy/hdr-glow";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/konstantin-beregovoy/";
 export const PORTFOLIO_URL = "https://bereg.dev";

@@ -1,7 +1,7 @@
 import { assembleGainMapJpeg } from "./container";
 import { encodeGrayJpeg, encodeRgbJpeg } from "./jpeg";
 
-export const SWATCH_SIZE = 64;
+const SWATCH_SIZE = 64;
 export const MIN_SWATCH_BOOST = 1.5;
 export const MAX_SWATCH_BOOST = 7.5; // the same peak as the built-in swatch
 

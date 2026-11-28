@@ -19,7 +19,7 @@ import { logError } from "./log";
 import { drawOriginal, drawSimulated } from "./preview";
 import { SAMPLES } from "./samples";
 import { HDR_CLASS } from "./snippets";
-import { addGlowColor, sameColor } from "./tool/colors";
+import { GLOW_COLORS_FULL, addGlowColor, isGlowListFull, sameColor } from "./tool/colors";
 import type { RGB } from "./tool/mask";
 import {
   HDR_JPEG_LEDE,
@@ -98,7 +98,19 @@ export function ImageTool({ support }: Props) {
     drawSimulated(canvas, bitmap, background, mask, boost);
   }, [bitmap, background, boost, mode, maskVersion, maskCanvas]);
 
-  const addColor = (color: RGB) => setColors((list) => addGlowColor(list, color));
+  // A click on the image or on a found color says why nothing was added when the list is full.
+  const addColor = (color: RGB) => {
+    if (isGlowListFull(colors, color)) {
+      setError(GLOW_COLORS_FULL);
+      return;
+    }
+    setColors((list) => addGlowColor(list, color));
+  };
+
+  const removeColor = (color: RGB) => {
+    setColors((list) => list.filter((other) => !sameColor(other, color)));
+    if (session.error === GLOW_COLORS_FULL) setError("");
+  };
 
   const onPick = async (event: MouseEvent<HTMLCanvasElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -155,6 +167,9 @@ export function ImageTool({ support }: Props) {
                 ref={sourceCanvas}
                 className="pane__canvas pane__canvas--pick"
                 onClick={onPick}
+                // A canvas has no role of its own, so the label needs one; an <img> cannot stand in for it.
+                // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
+                role="img"
                 aria-label="Your image. Click a color to make it glow."
               />
             </figure>
@@ -166,6 +181,8 @@ export function ImageTool({ support }: Props) {
               <canvas
                 ref={maskCanvas}
                 className="pane__canvas"
+                // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
+                role="img"
                 aria-label="White where the image will glow."
               />
             </figure>
@@ -176,9 +193,7 @@ export function ImageTool({ support }: Props) {
               colors={colors}
               suggested={suggestedColors}
               onAdd={addColor}
-              onRemove={(color) =>
-                setColors((list) => list.filter((other) => !sameColor(other, color)))
-              }
+              onRemove={removeColor}
             />
             <GlowSliders
               tolerance={tolerance}
@@ -226,19 +241,31 @@ export function ImageTool({ support }: Props) {
               afterLabel={mode === "live" ? "HDR" : "Preview"}
               sliderLabel="Drag to compare the original with the glowing version"
               before={
-                <canvas ref={beforeCanvas} className="compare__media" aria-label="Original image" />
+                <canvas
+                  ref={beforeCanvas}
+                  className="compare__media"
+                  // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
+                  role="img"
+                  aria-label="Original image"
+                />
               }
               after={
                 mode === "live" ? (
                   hdrFile.file ? (
                     <img className="compare__media" src={hdrFile.file.url} alt="The HDR JPEG" />
                   ) : (
-                    <div className="compare__empty">Building the HDR JPEG…</div>
+                    <div className="compare__empty">
+                      {colors.length === 0
+                        ? "Choose at least one color to make the HDR JPEG."
+                        : "Building the HDR JPEG…"}
+                    </div>
                   )
                 ) : (
                   <canvas
                     ref={simulatedCanvas}
                     className="compare__media"
+                    // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
+                    role="img"
                     aria-label="Simulated glow"
                   />
                 )

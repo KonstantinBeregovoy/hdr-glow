@@ -74,6 +74,8 @@ export function useBuiltFile(
     // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [ready, version, colors, tolerance, softness, boost, method, delay]);
 
-  // With no colors chosen there is nothing to offer, whatever was built before.
-  return { file: colors.length === 0 ? null : file, busy, clear: () => publish(null) };
+  // With no colors chosen there is nothing to offer or build, whatever was in flight before:
+  // a build cancelled by removing the last color never gets to reset busy.
+  const empty = colors.length === 0;
+  return { file: empty ? null : file, busy: !empty && busy, clear: () => publish(null) };
 }

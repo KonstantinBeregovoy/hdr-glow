@@ -1,6 +1,6 @@
 import { Button, Tag, TextInput } from "bereg-ds/react";
 import { useId, useState } from "react";
-import { MAX_GLOW_COLORS, parseHex, sameColor, toHex } from "../tool/colors";
+import { GLOW_COLORS_FULL, isGlowListFull, parseHex, sameColor, toHex } from "../tool/colors";
 import type { RGB } from "../tool/mask";
 
 type Props = {
@@ -25,8 +25,8 @@ export function GlowColors({ colors, suggested, onAdd, onRemove }: Props) {
       setHexError("Not a color. Use a hex code like #fff or #a86bff.");
       return;
     }
-    if (colors.length >= MAX_GLOW_COLORS && !colors.some((c) => sameColor(c, color))) {
-      setHexError(`Up to ${MAX_GLOW_COLORS} colors. Remove one first.`);
+    if (isGlowListFull(colors, color)) {
+      setHexError(GLOW_COLORS_FULL);
       return;
     }
     onAdd(color);
