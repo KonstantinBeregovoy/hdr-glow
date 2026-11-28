@@ -1,3 +1,4 @@
+import { Button } from "bereg-ds/react";
 import type { ReactNode } from "react";
 import { formatSize } from "./config";
 import type { Result } from "./useBuiltFile";
@@ -25,21 +26,21 @@ export function ResultCard({
 }: CardProps) {
   return (
     <section className="result">
-      <output className="sr-only">
+      <output className="visually-hidden">
         {file ? `${title} ready, ${formatSize(file.size)}` : busy ? "Building…" : ""}
       </output>
-      <h3 className="result__title">{title}</h3>
+      <h3>{title}</h3>
       <p className="tool__note">{lede}</p>
       {file ? (
         <>
           <img className="tool__image" src={file.url} alt={`${title}, the file you can download`} />
-          <p className="result__size">
+          <p className="text-meta">
             {formatSize(file.size)}
             {busy ? ", updating…" : ""}
           </p>
-          <a className="button" href={file.url} download={downloadName}>
+          <Button href={file.url} download={downloadName}>
             {buttonLabel}
-          </a>
+          </Button>
           <p className="tool__note">{note}</p>
         </>
       ) : (

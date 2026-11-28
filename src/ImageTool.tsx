@@ -1,4 +1,5 @@
-import { useEffect, useId, useRef, useState, type MouseEvent } from "react";
+import { Button, Section } from "bereg-ds/react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { Compare } from "./Compare";
 import { DropZone } from "./imageTool/DropZone";
 import { GlowColors } from "./imageTool/GlowColors";
@@ -41,7 +42,6 @@ type Mode = "live" | "simulated";
 type Props = { support: HdrSupport };
 
 export function ImageTool({ support }: Props) {
-  const ids = useId();
   const sourceCanvas = useRef<HTMLCanvasElement>(null);
   const beforeCanvas = useRef<HTMLCanvasElement>(null);
   const simulatedCanvas = useRef<HTMLCanvasElement>(null);
@@ -115,30 +115,33 @@ export function ImageTool({ support }: Props) {
   };
 
   return (
-    <section id="image" className="tool" aria-labelledby={`${ids}-title`}>
-      <h2 id={`${ids}-title`} className={`section-title ${HDR_CLASS}`}>
-        {IMAGE_TITLE}
-      </h2>
-      <p className="section-lede">{IMAGE_LEDE}</p>
+    <Section
+      id="image-title"
+      sectionId="image"
+      title={IMAGE_TITLE}
+      headingClassName={`${HDR_CLASS} text-post-title`}
+      className="tool"
+    >
+      <p className="lede">{IMAGE_LEDE}</p>
 
       <DropZone hasImage={bitmap !== null} onFile={openFile} />
 
       <p className="samples">
         No logo at hand? Try a sample:
         {SAMPLES.map((sample) => (
-          <button
+          <Button
             key={sample.id}
-            type="button"
-            className="samples__button"
+            variant="secondary"
+            size="sm"
             onClick={() => void session.loadSample(sample.id, onLoaded)}
           >
             {sample.label}
-          </button>
+          </Button>
         ))}
       </p>
 
       {session.error ? (
-        <p className="tool__error" role="alert">
+        <p className="field-error tool__error" role="alert">
           {session.error}
         </p>
       ) : null}
@@ -190,25 +193,25 @@ export function ImageTool({ support }: Props) {
           </div>
 
           <section className="preview" aria-label="Preview">
-            <h3 className="result__title">Preview</h3>
+            <h3>Preview</h3>
             {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role */}
             <div className="mode" role="group" aria-label="Preview mode">
-              <button
-                type="button"
-                className="mode__button"
-                aria-pressed={mode === "live"}
+              <Button
+                variant="secondary"
+                size="sm"
+                pressed={mode === "live"}
                 onClick={() => setMode("live")}
               >
                 Real HDR
-              </button>
-              <button
-                type="button"
-                className="mode__button"
-                aria-pressed={mode === "simulated"}
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                pressed={mode === "simulated"}
                 onClick={() => setMode("simulated")}
               >
                 Preview
-              </button>
+              </Button>
             </div>
             <p className="tool__note">
               {mode === "live"
@@ -280,6 +283,6 @@ export function ImageTool({ support }: Props) {
           </p>
         </>
       ) : null}
-    </section>
+    </Section>
   );
 }

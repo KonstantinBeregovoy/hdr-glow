@@ -1,0 +1,104 @@
+/* Compare (before / after slider), glow's own component: it stays in this project, not in Bereg DS.
+   Two pictures on top of each other with a draggable edge; the range input on top is the keyboard path.
+   Built only from Bereg DS tokens. Markup and behaviour: src/Compare.tsx. */
+
+.compare {
+  position: relative;
+  width: 100%;
+  max-width: 56rem;
+  overflow: hidden;
+  border: var(--border-thin) solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  user-select: none;
+}
+
+.compare__layer {
+  position: absolute;
+  inset: 0;
+}
+
+.compare__media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.compare__empty {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: var(--muted);
+  font-size: var(--font-size-sm);
+}
+
+.compare__tag {
+  position: absolute;
+  top: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--header-bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: var(--font-size-2xs);
+  pointer-events: none;
+}
+
+.compare__tag--before {
+  left: var(--space-2);
+}
+
+.compare__tag--after {
+  right: var(--space-2);
+}
+
+.compare__handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--border-medium);
+  margin-left: calc(var(--border-medium) / -2);
+  background: var(--text);
+  pointer-events: none;
+}
+
+/* The round grip is the one shape outside the system's radii: a circle reads as "drag me". */
+.compare__handle::after {
+  content: "\25C2\25B8";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: var(--space-8);
+  height: var(--space-8);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--text);
+  color: var(--bg);
+  font-size: var(--font-size-2xs);
+}
+
+.compare__range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+}
+
+.compare:has(.compare__range:focus-visible) {
+  outline: var(--border-thick) solid var(--focus);
+  outline-offset: var(--focus-offset);
+}
+
+@media (forced-colors: active) {
+  .compare__handle,
+  .compare__handle::after {
+    background: CanvasText;
+    color: Canvas;
+  }
+}
